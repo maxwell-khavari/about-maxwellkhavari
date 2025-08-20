@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Maxwell Khavari – AI & Fairness Projects</title>
+<small>Gunn High School 2029</small>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+    :root {
+        --bg-primary: #0a0a0a;
+        --bg-secondary: #111111;
+        --bg-card: #1a1a1a;
+        --bg-gradient: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+        --accent-primary: #00d4ff;
+        --accent-secondary: #7c3aed;
+        --accent-tertiary: #06ffa5;
+        --text-primary: #ffffff;
+        --text-secondary: #a1a1aa;
+        --text-muted: #71717a;
+        --border: #27272a;
+        --shadow-glow: 0 0 20px rgba(0, 212, 255, 0.1);
+        --shadow-intense: 0 8px 32px rgba(0, 0, 0, 0.3);
+        --gradient-text: linear-gradient(135deg, #00d4ff 0%, #7c3aed 50%, #06ffa5 100%);
+        --gradient-border: linear-gradient(135deg, #00d4ff 0%, #7c3aed 50%, #06ffa5 100%);
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        background: var(--bg-primary);
+        color: var(--text-primary);
+        line-height: 1.6;
+        overflow-x: hidden;
+        font-weight: 400;
+    }
+
+    /* Animated background particles */
+    .bg-particles {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    .particle {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        background: var(--accent-primary);
+        border-radius: 50%;
+        animation: float 8s infinite ease-in-out;
+        opacity: 0.6;
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.6; }
+        50% { transform: translateY(-20px) rotate(180deg); opacity: 1; }
+    }
+
+    /* Floating GitHub button with enhanced styling */
+    .floating-github {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        color: var(--text-primary);
+        padding: 0.8rem 1.5rem;
+        border-radius: 50px;
+        font-weight: 600;
+        box-shadow: var(--shadow-glow);
+        cursor: pointer;
+        z-index: 200;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        backdrop-filter: blur(10px);
+        font-size: 0.95rem;
+    }
+
+    .floating-github:hover {
+        background: var(--accent-primary);
+        color: var(--bg-primary);
+        transform: translateY(-2px);
+        box-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
+    }
+
+    .floating-github svg {
+        width: 18px;
+        height: 18px;
+        fill: currentColor;
+        transition: transform 0.3s ease;
+    }
+
+    .floating-github:hover svg {
+        transform: rotate(360deg);
+    }
+
+    header {
+        background: var(--bg-secondary);
+        text-align: center;
+        padding: 4rem 1rem 3rem;
+        position: relative;
+        overflow: hidden;
+        border-bottom: 1px solid var(--border);
+    }
+
+    header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: var(--gradient-border);
+        opacity: 0.1;
+        z-index: 1;
+    }
+
+    header > * {
+        position: relative;
+        z-index: 2;
+    }
+
+    header h1 {
+        font-size: 3.5rem;
+        font-weight: 700;
+        margin: 0.5rem 0;
+        background: var(--gradient-text);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        opacity: 0;
+        animation: fadeInScale 1.5s ease forwards;
+    }
+
+    header p {
+        font-size: 1.2rem;
+        color: var(--text-secondary);
+        margin: 0 0 1rem;
+        opacity: 0;
+        animation: fadeInUp 1.5s ease 0.5s forwards;
+        font-weight: 500;
+    }
+
+    .container {
+        max-width: 1000px;
+        margin: auto;
+        padding: 3rem 1.5rem;
+        position: relative;
+        z-index: 10;
+    }
+
+    section {
+        background: var(--bg-card);
+        margin-bottom: 2.5rem;
+        padding: 2.5rem;
+        border-radius: 16px;
+        border: 1px solid var(--border);
+        position: relative;
+        overflow: hidden;
+        opacity: 0;
+        animation: slideInUp 1s ease forwards;
+        backdrop-filter: blur(10px);
+    }
+
+    section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: var(--gradient-border);
+        transform: translateX(-100%);
+        animation: slideInBorder 1s ease 0.5s forwards;
+    }
+
+    section:nth-child(1) { animation-delay: 0.2s; }
+    section:nth-child(2) { animation-delay: 0.4s; }
+    section:nth-child(3) { animation-delay: 0.6s; }
+    section:nth-child(4) { animation-delay: 0.8s; }
+    section:nth-child(5) { animation-delay: 1s; }
+
+    section:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-intense);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    h2 {
+        color: var(--text-primary);
+        font-size: 2.2rem;
+        font-weight: 700;
+        margin-top: 0;
+        margin-bottom: 1.5rem;
+        position: relative;
+        opacity: 0;
+        animation: fadeInLeft 1s ease 0.3s forwards;
+    }
+
+    h2::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -8px;
+        height: 2px;
+        width: 60px;
+        background: var(--gradient-border);
+        animation: expandLine 1s ease 0.8s forwards;
+        transform: scaleX(0);
+        transform-origin: left;
+    }
+
+    h3 {
+        color: var(--accent-primary);
+        font-size: 1.4rem;
+        font-weight: 600;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        opacity: 0;
+        animation: fadeInUp 1s ease 0.5s forwards;
+    }
+
+    ul {
+        padding-left: 1.5rem;
+        margin-top: 0;
+        opacity: 0;
+        animation: fadeInUp 1s ease 0.7s forwards;
+    }
+
+    ul li {
+        margin-bottom: 1rem;
+        color: var(--text-secondary);
+        position: relative;
+        padding-left: 1rem;
+    }
+
+    ul li::before {
+        content: '▶';
+        position: absolute;
+        left: -0.5rem;
+        color: var(--accent-primary);
+        font-size: 0.8rem;
+    }
+
+    p {
+        margin-top: 0;
+        color: var(--text-secondary);
+        opacity: 0;
+        animation: fadeInUp 1s ease 0.6s forwards;
+        font-weight: 400;
+    }
+
+    a {
+        color: var(--accent-primary);
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+    a::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background: var(--accent-primary);
+        transition: width 0.3s ease;
+    }
+
+    a:hover::after {
+        width: 100%;
+    }
+
+    a:hover {
+        color: var(--accent-tertiary);
+        text-shadow: 0 0 10px rgba(6, 255, 165, 0.3);
+    }
+
+    .projects a, .cta-button {
+        display: block;
+        margin: 1.5rem 0;
+        padding: 1rem 2rem;
+        background: var(--bg-secondary);
+        border: 1px solid var(--border);
+        color: var(--text-primary);
+        font-weight: 600;
+        text-align: center;
+        border-radius: 12px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .projects a::before, .cta-button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: var(--gradient-border);
+        transition: left 0.5s ease;
+        z-index: 1;
+    }
+
+    .projects a > *, .cta-button > * {
+        position: relative;
+        z-index: 2;
+    }
+
+    .projects a:hover::before, .cta-button:hover::before {
+        left: 0;
+    }
+
+    .projects a:hover, .cta-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
+        color: var(--bg-primary);
+    }
+
+    .highlight {
+        font-weight: 700;
+        background: var(--gradient-text);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .status-update {
+        background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+        border: 1px solid var(--accent-secondary);
+        border-left: 4px solid var(--accent-secondary);
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        border-radius: 12px;
+        color: var(--text-primary);
+        font-weight: 500;
+        position: relative;
+        overflow: hidden;
+        opacity: 0;
+        animation: slideInRight 1s ease 0.8s forwards;
+    }
+
+    .status-update::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(124, 58, 237, 0.1) 0%, transparent 70%);
+        animation: pulse 3s ease-in-out infinite;
+    }
+
+    footer {
+        text-align: center;
+        background: var(--bg-secondary);
+        color: var(--text-muted);
+        padding: 2.5rem 1rem;
+        font-size: 0.9rem;
+        border-top: 1px solid var(--border);
+        position: relative;
+    }
+
+    footer a {
+        color: var(--accent-primary);
+        font-weight: 600;
+    }
+
+    /* Advanced Animations */
+    @keyframes fadeInScale {
+        0% {
+            opacity: 0;
+            transform: scale(0.8) translateY(20px);
+        }
+        100% {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+    }
+
+    @keyframes fadeInUp {
+        0% {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes fadeInLeft {
+        0% {
+            opacity: 0;
+            transform: translateX(-30px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes slideInUp {
+        0% {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes slideInRight {
+        0% {
+            opacity: 0;
+            transform: translateX(50px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes slideInBorder {
+        0% {
+            transform: translateX(-100%);
+        }
+        100% {
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes expandLine {
+        0% {
+            transform: scaleX(0);
+        }
+        100% {
+            transform: scaleX(1);
+        }
+    }
+
+    @keyframes pulse {
+        0%, 100% {
+            opacity: 0.3;
+            transform: scale(1);
+        }
+        50% {
+            opacity: 0.6;
+            transform: scale(1.05);
+        }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        header h1 {
+            font-size: 2.5rem;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+        }
+
+        h3 {
+            font-size: 1.2rem;
+        }
+
+        section {
+            padding: 2rem 1.5rem;
+        }
+
+        .floating-github {
+            padding: 0.6rem 1.2rem;
+            font-size: 0.85rem;
+        }
+
+        .container {
+            padding: 2rem 1rem;
+        }
+    }
+
+    /* Scroll animations */
+    @media (prefers-reduced-motion: no-preference) {
+        section {
+            animation: slideInUp 1s ease forwards;
+        }
+    }
+</style>
+</head>
+<body>
+
+<!-- Animated background particles -->
+<div class="bg-particles" id="particles"></div>
+
+<a href="https://github.com/maxwell-khavari" target="_blank" rel="noopener noreferrer" class="floating-github" aria-label="Visit Maxwell Khavari GitHub">
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.485 2 12.019c0 4.426 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.009-.868-.014-1.703-2.782.604-3.369-1.343-3.369-1.343-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.031 1.531 1.031.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.114-4.555-4.958 0-1.095.39-1.991 1.029-2.694-.103-.254-.446-1.273.098-2.654 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.845c.85.004 1.705.115 2.504.337 1.908-1.296 2.746-1.026 2.746-1.026.546 1.381.202 2.4.1 2.654.64.703 1.028 1.599 1.028 2.694 0 3.854-2.338 4.7-4.566 4.95.359.309.678.918.678 1.852 0 1.336-.012 2.416-.012 2.744 0 .268.18.58.688.481A10.019 10.019 0 0022 12.019C22 6.485 17.523 2 12 2z"/></svg>
+    GitHub
+</a>
+
+<header>
+    <h1>Maxwell Khavari</h1>
+    <p>AI Researcher • Developer • Gunn High School Student</p>
+</header>
+
+<div class="container">
+
+    <section>
+        <h2>About My Work</h2>
+        <p>
+            My core focus is on understanding and actively addressing algorithmic bias in AI systems — particularly within
+            text-to-image generation and classification models. It's crucial work because these powerful systems, if left
+            unchecked, can inadvertently reinforce harmful stereotypes. My goal is to ensure they become fairer and
+            more representative of our diverse world.
+        </p>
+        <p>
+            My current research delves into how race, gender, and socioeconomic status are represented in AI-generated
+            imagery and within classification tasks. I'm developing methods to reverse-engineer prompts and model decisions,
+            allowing us to thoroughly audit and improve AI fairness.
+        </p>
+        <p>
+            Additionally, I build convolutional neural networks (CNNs), especially for image analysis tasks. I've developed and run small-scale CNN models in Google Colab to experiment with various architectures and datasets.
+        </p>
+    </section>
+
+    <section>
+        <h2>Current Project: Algorithmic Bias Progression Over Time</h2>
+
+        <h3>The Problem &amp; Opportunity</h3>
+        <ul>
+            <li><strong>Persistent Algorithmic Bias:</strong> Text-to-image AIs generate biased visuals (e.g., for professions, leadership)
+                even from neutral prompts (e.g., "CEO," "nurse," "leader").
+                These biases stem from vast, real-world datasets that unfortunately carry existing societal biases related to race, gender, status, and intelligence.
+            </li>
+            <li><strong>Temporal Blind Spot:</strong> There's a significant gap in understanding how these biases <span class="highlight">persist and significantly change over time</span> across different model versions.</li>
+            <li><strong>Bias Injection at the Source:</strong> A critical observation is that language models can introduce bias during prompt reconstruction, <em>before</em> the image is generated.</li>
+            <li><strong>Overlooked Human Perception:</strong> Critically, the concept of "bias" isn't uniformly perceived. What an algorithm deems neutral, or what one group finds subtly biased, another might experience as overtly offensive. Relying solely on technical metrics misses this vital human dimension of fairness.</li>
+        </ul>
+
+        <h3>Our Core Hypothesis</h3>
+        <p>
+            Text-to-image models exhibit biases related to socioeconomic status, intelligence, occupational prestige, or leadership, which <span class="highlight">persist and significantly change over time</span>, even when prompts do not explicitly mention gender or race. Furthermore, the human perception and interpretation of these algorithmic biases vary significantly across evaluators from diverse racial and gender backgrounds, revealing distinct subjective experiences of algorithmic fairness.
+        </p>
+
+        <h3>Project Goals</h3>
+        <ul>
+            <li>Quantify the percentage change in gender and racial representation for specific prompts across different model versions over time.</li>
+            <li>Identify and document distinct patterns of algorithmic bias progression (e.g., increasing, decreasing, stable).</li>
+            <li><strong>Quantify the variance in bias perception among human evaluators, demonstrating statistically significant differences based on their racial and gender backgrounds.</strong></li>
+            <li>Generate a robust dataset of over 5,000 images, complete with algorithmic bias metrics and human perception ratings, and make it publicly available.</li>
+        </ul>
+
+        <div class="status-update">
+            <p>
+                <strong>Current Status Update:</strong> I'm happy to report that I have most of the automation code and analysis code for the dataset complete. All I need to do is adjust the locators for different models and tweak small parts of it. This means we're in a strong position to generate the data and start the analysis very soon! The groundwork for the human perception study will build directly on these generated images.
+            </p>
+        </div>
+
+        <a href="INSERT_LINK_HERE" class="cta-button" target="_blank" rel="noopener noreferrer">View Full Project PRD (PDF/Document)</a>
+    </section>
+
+    <section>
+        <h2>Project Components &amp; Methodology Highlights</h2>
+
+        <h3>Core Domains for Bias Analysis ("Rule of 3")</h3>
+        <ul>
+            <li><strong>Medical &amp; Healthcare Professions:</strong> Examining roles like "nurse," "surgeon," "paramedic" for intersectional bias (prestige, gender coding, racial representation).</li>
+            <li><strong>Patients &amp; Students:</strong> Analyzing depictions of roles often visualized with infantilizing, racialized, or stereotypically passive attributes.</li>
+            <li><strong>Power, Visibility, &amp; Cultural Authority:</strong> Focusing on who appears as leaders, "influencers," "experts," and "icons," probing the sociotechnical biases.</li>
+        </ul>
+
+        <h3>Key Analysis Methods</h3>
+        <ul>
+            <li><strong>Automated Image Generation:</strong> Using "playwright" (Node.js library) to automate generation of 14 prompts, repeated 1008 times, for a large dataset.</li>
+            <li><strong>Automated Bias Analysis:</strong> Using FairFace and/or DeepFace for gender/race/age analysis, calculating proportions, and visualizing trends (Python, Pandas, Seaborn).</li>
+            <li><strong>Human Perception Analysis:</strong> Collecting diverse human judgments on perceived bias to quantify subjective experiences.</li>
+            <li><strong>Direct Bias Evidence (Tier 1):</strong> Capturing visible prompt reconstructions from GPT/DALL-E, and using Stable Diffusion's "Interrogate CLIP" to compare input vs. internal interpretation.</li>
+            <li><strong>Reverse-Engineering Analysis (Tier 2):</strong> Using standalone CLIP Interrogator tools for Midjourney, Gemini/Imagen, DeepAI, and cross-validating with alternative image-to-text models (BLIP-2, InstructBLIP).</li>
+        </ul>
+
+        <h3>Expected Impact</h3>
+        <ul>
+            <li>Provides a crucial benchmark dataset and analysis framework for future fairness research in image/video generation.</li>
+            <li>Offers a clear, data-driven picture of how bias has evolved (or persisted) in popular generative models.</li>
+            <li>Provides actionable findings for AI developers, regulators, and users to guide the creation of truly safer, more inclusive tools.</li>
+            <li><strong>Guides the development of fine-tuned models capable of generating images that reflect real-world demographic percentages (e.g., for gender, race) in various contexts.</strong></li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Highlighted Repositories</h2>
+        <div class="projects">
+            <a href="https://github.com/maxwell-khavari/ai-dataset-automation-script" target="_blank" rel="noopener noreferrer" class="github-link">Algorithmic Bias Progression Over Time (Main Project)</a>
+            <a href="https://github.com/maxwell-khavari/classify" target="_blank" rel="noopener noreferrer" class="github-link">Race &amp; Gender Tagger</a>
+            <a href="https://github.com/maxwell-khavari/cifar100_ai_image_models" target="_blank" rel="noopener noreferrer" class="github-link">CIFAR-100 Analysis with AI Models</a>
+            <a href="https://github.com/maxwell-khavari/modular-pipeline" target="_blank" rel="noopener noreferrer" class="github-link">Modular-Pipeline for AI BIAS PROJECT</a>
+        </div>
+    </section>
+
+</div>
+
+<footer>
+    &copy; 2025 Maxwell Khavari • <a href="https://github.com/maxwell-khavari" target="_blank" rel="noopener noreferrer">GitHub Profile</a><br />
+    <small>Summer Internship @ BMDS</small>
+</footer>
+
+<script>
+// Create animated background particles
+function createParticles() {
+    const container = document.getElementById('particles');
+    const particleCount = 50;
+    
+    for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.top = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 8 + 's';
+        particle.style.animationDuration = (Math.random() * 3 + 5) + 's';
+        container.appendChild(particle);
+    }
+}
+
+// Initialize particles when page loads
+window.addEventListener('load', createParticles);
+
+// Add smooth scrolling for any anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
+</script>
+
+</body>
+</html>
