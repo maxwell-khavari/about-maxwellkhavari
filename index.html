@@ -21,7 +21,7 @@
     --border: #e2e2de;
   }
   html { scroll-behavior: smooth; }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     font-family: 'DM Sans', sans-serif;
     background: var(--white);
@@ -49,34 +49,13 @@
   /* Hero */
   .hero { padding: 4.5rem 0 3.5rem; border-bottom: 1px solid var(--border); }
   .hero-eyebrow {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
     margin-bottom: 1.5rem;
   }
-  .live-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
+  .hero-meta {
     font-family: 'DM Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--green);
-    background: var(--green-light);
-    border: 1px solid #cce5d9;
-    border-radius: 20px;
-    padding: 0.2rem 0.65rem;
-  }
-  .live-dot {
-    width: 5px; height: 5px;
-    border-radius: 50%;
-    background: var(--green-mid);
-    animation: pulse 2s infinite;
-  }
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.4; }
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    color: var(--gray-500);
   }
   .hero h1 {
     font-size: clamp(2rem, 5vw, 2.875rem);
@@ -272,24 +251,48 @@
   }
 
   footer {
-    padding: 2.5rem 0;
+    padding: 2.5rem 0 3rem;
+    border-top: 1px solid var(--border);
+  }
+  .footer-contact {
+    margin-bottom: 1.5rem;
+    padding: 1.25rem 1.5rem;
+    background: var(--gray-100);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+  .footer-contact-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray-300);
+    margin-bottom: 0.5rem;
+  }
+  .footer-email {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.9375rem;
+    color: var(--black);
+    user-select: all;
+    word-break: break-all;
+  }
+  .footer-bottom {
     display: flex;
     align-items: center;
     justify-content: space-between;
     font-size: 0.8125rem;
     color: var(--gray-300);
-    border-top: 1px solid var(--border);
     flex-wrap: wrap;
     gap: 0.5rem;
   }
-  footer a { color: var(--gray-500); text-decoration: none; }
-  footer a:hover { color: var(--green); }
+  .footer-bottom a { color: var(--gray-500); text-decoration: none; }
+  .footer-bottom a:hover { color: var(--green); }
 
   @media (max-width: 600px) {
     .traction-bar { grid-template-columns: 1fr; }
     .built-grid { grid-template-columns: 1fr; }
     nav { flex-direction: column; align-items: flex-start; gap: 1rem; }
-    footer { flex-direction: column; }
+    .footer-bottom { flex-direction: column; align-items: flex-start; }
   }
 </style>
 </head>
@@ -307,78 +310,78 @@
 
   <div class="hero">
     <div class="hero-eyebrow">
-      <span class="live-pill"><span class="live-dot"></span>Active pilot — Bay Area</span>
+      <span class="hero-meta">Researcher — Stanford AIMI & LSE · Startup</span>
     </div>
     <h1>I build <em>real products</em><br>and measure what breaks.</h1>
     <p class="hero-sub">
-      Founder of <strong>DinePulse</strong> — a restaurant intelligence platform in active pilot with 3 Bay Area groups.
+      Founder of <strong>DinePulse</strong> — an early-stage AI retention + intelligence platform for restaurants, currently in active pilot. 
       Parallel researcher studying how AI models misrepresent reality, and how to fix it.
-      I ship, measure, and iterate; I don't present decks.
+      I ship, measure, and iterate.
     </p>
     <div class="contact-row">
-      <a class="contact-cta" href="mailto:maxwellkhavari@gmail.com">Get in touch</a>
-      <a class="contact-link" href="https://github.com/" target="_blank">github</a>
-      <a class="contact-link" href="https://linkedin.com/" target="_blank">linkedin</a>
+      <a class="contact-cta" href="#contact">Get in touch</a>
+      <a class="contact-link" href="https://github.com/maxwell-khavari" target="_blank">github</a>
+      <a class="contact-link" href="https://www.linkedin.com/in/maxwell-khavari" target="_blank">linkedin</a>
     </div>
   </div>
 
   <!-- DinePulse -->
   <section class="section" id="startup">
-    <div class="section-label">DinePulse — Early-Stage Company</div>
+    <div class="section-label">DinePulse — Early-Stage Platform</div>
 
     <div class="dp-header">
       <div class="dp-name">DinePulse</div>
       <p class="dp-tagline">
-        Restaurant operators are flying blind. Yelp reviews are weeks stale, competitors' reservation data is invisible, and social signals go unread. <strong>DinePulse ingests live review streams, waitlist demand, and social sentiment</strong> to give operators a real-time read on their competitive position — delivered as a weekly digest operators actually act on.
+        Restaurants lose customers after the first visit. <strong>DinePulse turns order history and engagement signals into personalized SMS re-engagement</strong>, helping operators understand when and why customers return. We're building toward broader customer intelligence + retention infrastructure for independent and multi-location groups.
       </p>
     </div>
 
     <div class="traction-bar">
       <div class="traction-cell">
-        <div class="t-num">3</div>
-        <div class="t-label">Restaurant groups in pilot</div>
+        <div class="t-num">Pilot</div>
+        <div class="t-label">Active with early partners</div>
       </div>
       <div class="traction-cell">
-        <div class="t-num"><em>12</em></div>
-        <div class="t-label">Locations tracked weekly</div>
+        <div class="t-num"><em>Live</em></div>
+        <div class="t-label">Ingesting order + visit data</div>
       </div>
       <div class="traction-cell">
-        <div class="t-num">6 mo</div>
-        <div class="t-label">Live operational data</div>
+        <div class="t-num">SMS</div>
+        <div class="t-label">AI-driven re-engagement</div>
       </div>
     </div>
 
     <div class="built-grid">
       <div class="built-item">
-        <div class="bi-title">Live scraping pipeline</div>
-        <div class="bi-desc">Pulls Yelp, Google, OpenTable, and Instagram data on a 24-hour cycle. Handles rate limits, deduplication, and schema normalization.</div>
+        <div class="bi-title">Data ingestion</div>
+        <div class="bi-desc">Connects to restaurant systems and POS exports to unify order history, visit frequency, and customer-level behavior. Handles manual uploads during early deployments.</div>
       </div>
       <div class="built-item">
-        <div class="bi-title">NLP sentiment layer</div>
-        <div class="bi-desc">Fine-tuned classifier tags reviews by topic (food, service, wait time, value) and sentiment — not just stars. Operators see what's actually breaking.</div>
+        <div class="bi-title">Retention signals</div>
+        <div class="bi-desc">Analyzes recency, frequency, spend patterns, and engagement to flag at-risk customers and identify likely return windows.</div>
       </div>
       <div class="built-item">
-        <div class="bi-title">Competitive benchmarking</div>
-        <div class="bi-desc">Each operator gets a ranked view against 10–15 competitors in their micro-market, updated weekly. Built on PostgreSQL with a Next.js dashboard.</div>
+        <div class="bi-title">Personalized SMS outreach</div>
+        <div class="bi-desc">Uses AI to generate tailored messages based on what a customer ordered, when they last visited, and similar customer behavior. Not generic blasts.</div>
       </div>
       <div class="built-item">
-        <div class="bi-title">Weekly operator digest</div>
-        <div class="bi-desc">Delivered every Monday. Three actionable signals, no noise. Pilot operators open rate: 100%. Two have already changed staffing schedules based on outputs.</div>
+        <div class="bi-title">Operator insights</div>
+        <div class="bi-desc">Surfaces which dishes, days, and campaigns actually drive repeat visits. Early focus is on actionable weekly signals operators can test.</div>
       </div>
     </div>
 
     <div class="operator-quote">
-      <p>"We changed our Thursday staffing after DinePulse flagged a wait-time pattern we'd completely missed. That week alone justified the whole thing."</p>
-      <div class="attr">— Pilot operator, 4-location SF group (placeholder)</div>
+      <p>"We're in early pilot learning what actually moves repeat visits. The goal is simple: turn first-time guests into regulars without adding ops overhead."</p>
+      <div class="attr">— Founding team</div>
     </div>
 
     <div class="stack-row">
       <span class="tag">Python</span>
       <span class="tag">PostgreSQL</span>
       <span class="tag">Next.js</span>
-      <span class="tag">NLP / transformers</span>
-      <span class="tag">Scrapy</span>
-      <span class="tag">OpenTable API</span>
+      <span class="tag">LLM / NLP</span>
+      <span class="tag">POS integrations</span>
+      <span class="tag">Twilio</span>
     </div>
   </section>
 
@@ -388,7 +391,7 @@
     <a href="maxwell-khavari-research.html" class="research-card">
       <h2>T2I bias overcorrection &amp; reconstructive prompting</h2>
       <p>
-        Text-to-image model developers are patching bias with demographic steering — but the corrections are overshooting. I'm building a prompt reconstruction system that calibrates outputs to real BLS/census distributions, not idealized targets. Evaluation pipeline is live; running batch comparisons across SD and DALL-E outputs now.
+        Text-to-image model developers are patching bias with demographic steering, but the corrections are overshooting. I'm building a prompt reconstruction system that calibrates outputs to real BLS/census distributions, not idealized targets. Evaluation pipeline is live; running batch comparisons across SD and DALL-E outputs now.
       </p>
       <div class="card-tag-row">
         <span class="tag">CLIP</span>
@@ -409,21 +412,21 @@
   <section class="section" id="repos">
     <div class="section-label">Code</div>
     <div class="repo-list">
-      <a href="https://github.com/" target="_blank" class="repo-item">
+      <a href="https://github.com/maxwell-khavari" target="_blank" class="repo-item">
         <div class="repo-meta">
-          <h3>dinepulse-pipeline</h3>
-          <p>Production scraping and NLP stack powering the DinePulse pilot. Handles 12 locations across 4 platforms on a 24-hour cycle. Includes sentiment classifier, competitive scoring, and digest generator.</p>
+          <h3>dinepulse-core</h3>
+          <p>Data ingestion and retention-signal pipeline powering DinePulse pilots. Handles POS exports, customer unification, feature generation, and SMS message construction.</p>
         </div>
         <span class="repo-lang">Python / SQL</span>
       </a>
-      <a href="https://github.com/" target="_blank" class="repo-item">
+      <a href="https://github.com/maxwell-khavari" target="_blank" class="repo-item">
         <div class="repo-meta">
           <h3>reconstructive-prompting</h3>
           <p>Prompt reconstruction pipeline for T2I bias research. Maps occupational prompts to BLS demographic distributions, generates calibrated batches, runs FairFace evaluation at scale.</p>
         </div>
         <span class="repo-lang">Python</span>
       </a>
-      <a href="https://github.com/" target="_blank" class="repo-item">
+      <a href="https://github.com/maxwell-khavari" target="_blank" class="repo-item">
         <div class="repo-meta">
           <h3>fairface-eval</h3>
           <p>Batch harness for measuring perceived demographic distributions in T2I outputs. Wraps FairFace and DeepFace for high-throughput evaluation across model configurations.</p>
@@ -433,9 +436,15 @@
     </div>
   </section>
 
-  <footer>
-    <span>&copy; 2025 Maxwell Khavari</span>
-    <a href="mailto:maxwellkhavari@gmail.com">maxwellkhavari@gmail.com</a>
+  <footer id="contact">
+    <div class="footer-contact">
+      <div class="footer-contact-label">Email</div>
+      <div class="footer-email">maxwellkhavari@gmail.com</div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Maxwell Khavari</span>
+      <a href="https://www.linkedin.com/in/maxwell-khavari" target="_blank">LinkedIn</a>
+    </div>
   </footer>
 
 </div>
